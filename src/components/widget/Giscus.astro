@@ -1,0 +1,93 @@
+---
+/**
+ * Giscus Comments Component
+ * A comment system powered by GitHub Discussions
+ * Docs: https://giscus.app
+ */
+
+import { giscusConfig } from "../../config";
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+
+// Giscus configuration from config.ts
+const config = {
+  repo: giscusConfig.repo,
+  repoId: giscusConfig.repoId,
+  category: giscusConfig.category,
+  categoryId: giscusConfig.categoryId,
+  mapping: giscusConfig.mapping || "pathname",
+  strict: "0",
+  reactionsEnabled: giscusConfig.reactionsEnabled ? "1" : "0",
+  emitMetadata: "0",
+  inputPosition: "top",
+  theme: "preferred_color_scheme",
+  lang: giscusConfig.lang || "vi",
+  loading: "lazy",
+};
+---
+
+<div class:list={["giscus-container", className]}>
+  <script
+    is:inline
+    src="https://giscus.app/client.js"
+    data-repo={config.repo}
+    data-repo-id={config.repoId}
+    data-category={config.category}
+    data-category-id={config.categoryId}
+    data-mapping={config.mapping}
+    data-strict={config.strict}
+    data-reactions-enabled={config.reactionsEnabled}
+    data-emit-metadata={config.emitMetadata}
+    data-input-position={config.inputPosition}
+    data-theme={config.theme}
+    data-lang={config.lang}
+    data-loading={config.loading}
+    crossorigin="anonymous"
+    async
+  ></script>
+</div>
+
+<script>
+  // Handle theme changes for Giscus
+  function setGiscusTheme(theme: string) {
+    const iframe = document.querySelector<HTMLIFrameElement>('iframe.giscus-frame');
+    if (iframe) {
+      iframe.contentWindow?.postMessage(
+        { giscus: { setConfig: { theme } } },
+        'https://giscus.app'
+      );
+    }
+  }
+
+  // Listen for theme changes
+  const observer = new MutationObserver(() => {
+    const isDark = document.documentElement.classList.contains('dark');
+    setGiscusTheme(isDark ? 'dark' : 'light');
+  });
+
+  observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ['class'],
+  });
+
+  // Set initial theme
+  document.addEventListener('DOMContentLoaded', () => {
+    const isDark = document.documentElement.classList.contains('dark');
+    setGiscusTheme(isDark ? 'dark' : 'light');
+  });
+</script>
+
+<style>
+  .giscus-container {
+    margin-top: 2rem;
+  }
+
+  .giscus-container :global(.giscus) {
+    width: 100%;
+  }
+</style>
+
