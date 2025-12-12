@@ -1,6 +1,6 @@
 {
   // Cloudflare Worker configuration for devjournal.io
-  "name": "devjournal-io",
+  "name": "devjournal",
   "main": "src/worker/index.ts",
   "compatibility_date": "2024-12-01",
   "compatibility_flags": ["nodejs_compat"],
