@@ -36,4 +36,5 @@ export const zh_CN: Translation = {
 	[Key.publishedAt]: "发布于",
 	[Key.license]: "许可协议",
 	[Key.apps]: "应用",
+[Key.docs]: "Docs",
 };
