@@ -1,0 +1,296 @@
+---
+import MainGridLayout from "../layouts/MainGridLayout.astro";
+
+const title = "SkyQueen Keys";
+const description = "Trang cấu hình bảo mật All-In-One của SkyQueen Logistics";
+---
+
+<MainGridLayout title={title} description={description}>
+    <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-[400px]">
+        <div class="card-base z-10 px-6 py-8 md:px-9 md:py-8 relative w-full flex flex-col items-center">
+            
+            {/* Header section */}
+            <div class="w-full text-center mb-8">
+                <div class="inline-flex items-center justify-center p-3 rounded-full bg-red-500/10 text-red-500 mb-3 animate-pulse">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                    </svg>
+                </div>
+                <h1 class="text-2xl font-bold text-black/90 dark:text-white/90">Thông Tin Cấu Hình Bảo Mật</h1>
+                <p class="text-sm text-black/50 dark:text-white/50 mt-1">Trang web này chứa thông tin cấu hình nhạy cảm. Bạn cần nhập mật khẩu giải mã để xem nội dung.</p>
+            </div>
+
+            {/* Login / Decrypt Form */}
+            <div id="login-container" class="w-full max-w-md bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-2xl p-6 backdrop-blur-md transition-all duration-300">
+                <form id="decrypt-form" class="space-y-4">
+                    <div>
+                        <label for="password-input" class="block text-xs font-semibold uppercase tracking-wider text-black/60 dark:text-white/60 mb-2">
+                            Mật khẩu giải mã
+                        </label>
+                        <div class="relative">
+                            <input 
+                                type="password" 
+                                id="password-input" 
+                                placeholder="Nhập mật khẩu..." 
+                                class="w-full bg-white dark:bg-black/40 border border-black/15 dark:border-white/15 rounded-xl px-4 py-3 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:border-transparent transition text-black/90 dark:text-white/90"
+                                required
+                            />
+                            <button 
+                                type="button" 
+                                id="toggle-password-btn" 
+                                class="absolute right-3 top-1/2 -translate-y-1/2 text-black/40 dark:text-white/40 hover:text-black/70 dark:hover:text-white/70 focus:outline-none"
+                            >
+                                <svg id="eye-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="error-message" class="text-xs text-red-500 bg-red-500/10 border border-red-500/20 rounded-lg p-3 hidden transition-all">
+                        Mật khẩu không chính xác hoặc dữ liệu bị lỗi.
+                    </div>
+
+                    <button 
+                        type="submit" 
+                        id="submit-btn" 
+                        class="w-full bg-[var(--primary)] hover:opacity-90 active:opacity-100 text-white font-semibold rounded-xl py-3 text-sm transition-all duration-150 flex items-center justify-center gap-2"
+                    >
+                        <span>Giải Mã Dữ Liệu</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z" />
+                        </svg>
+                    </button>
+                </form>
+            </div>
+
+            {/* Decrypted Content Container (Hidden by default) */}
+            <div id="content-container" class="w-full hidden space-y-6 animate-fade-in">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-emerald-500/10 border border-emerald-500/20 rounded-xl p-4">
+                    <div class="flex items-center gap-3">
+                        <div class="p-2 rounded-lg bg-emerald-500/20 text-emerald-500">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-semibold text-black/90 dark:text-white/90">Giải mã thành công</h3>
+                            <p class="text-xs text-black/50 dark:text-white/50">Dữ liệu được giải mã an toàn trên trình duyệt của bạn.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-2 w-full sm:w-auto">
+                        <button 
+                            id="copy-btn" 
+                            class="flex-1 sm:flex-none btn-regular flex items-center justify-center gap-1.5 px-4 py-2 text-xs font-semibold rounded-lg bg-black/5 dark:bg-white/10 text-black/80 dark:text-white/80 hover:bg-black/10 dark:hover:bg-white/15 transition-all"
+                        >
+                            <svg id="copy-icon" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+                            </svg>
+                            <span id="copy-text">Sao chép cấu hình</span>
+                        </button>
+                        <button 
+                            id="lock-btn" 
+                            class="flex-1 sm:flex-none btn-regular flex items-center justify-center gap-1.5 px-4 py-2 text-xs font-semibold rounded-lg bg-red-500/10 hover:bg-red-500/20 text-red-500 transition-all"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                            </svg>
+                            <span>Khóa lại</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="relative rounded-xl overflow-hidden border border-black/15 dark:border-white/15 bg-black/5 dark:bg-black/40">
+                    <div class="flex items-center justify-between px-4 py-2 border-b border-black/15 dark:border-white/15 bg-black/10 dark:bg-black/60 text-xs font-mono text-black/60 dark:text-white/60">
+                        <span>.env.docker</span>
+                        <span>Plaintext</span>
+                    </div>
+                    <pre class="p-4 md:p-6 overflow-x-auto text-xs md:text-sm font-mono text-black/85 dark:text-white/85 leading-relaxed selection:bg-[var(--primary)] selection:text-white"><code id="decrypted-code"></code></pre>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</MainGridLayout>
+
+<style>
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(8px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in {
+        animation: fadeIn 0.3s ease-out forwards;
+    }
+</style>
+
+<script is:inline>
+    // Encrypted keys data payload
+    const PAYLOAD = {
+        salt: "7fec31cd57415b14fd97f1d9b1dbf319",
+        iv: "634234d7e7356822bcb4a4e5",
+        ciphertext: "3e71abf1b4f00929f3509919c5131517ec2d50948f297d1c2b3eb3bfb86f5cf5e675c6858c39f7184ac7738d0682d89f06a6981b4c1c8ce1c24c73f596dc258d3128cd590311752d4d634c79a4d5dacc4684b948260b392cdf2f81282cffece33ce6c0217739606865a1dc769b9d3fe9d0012f5f0bb32168448c05834f65e1440d3d12cf9ac50891826a3675f2d323b8a49df7b4ba584c62921f0f3b6d0bffb9333fc36a54266a49af1d3de6e38c46abc1e0d70e30da48a98830757da35377b97c3412eab8b61388af5822184a6626a878b14eca8f4e29c05ac6792c7ac823dc1de4aa8b3b7e0513db2a10395b470b079ee8fccefeb9e99a5bc6eeb8e752483bac729f16dcf8d984875dc4dd472db1d2d18d7c7a94627c71b7e67f7589e75c3631d9a3f0af788238761b09f41dce50aa4a68d797ec3811f5e351f8fe146c36db43327fba168e6e02a8d00ec348b736341d5184aab7fda760ddd9c753fc02d888d88b47ab516e20a2c7e8e3b7811c4bcd8cc14d614bdfb661f8b2c38fd873c2e89a227eafb88dc1d594d6f7fa7b9125478d147fcc0a99adbfd87c7de92a63e47464ecb266f58495c2224e64d9535548c729262ca33cb10ea76dcbbbee018d59919e6c85a9fdb879b6a8884badb4439db65a91cdc9151ba603c7a9b6553b114806868acf409f2f9af780dea44c809b0f533997458cf8fcc2f87f9d35c6d8fa8fa1f7a95427fd78643d3a4eca0477e37da5eb4babc61443fc64d395b2461193b021020bdb0f70aa61b546767b53b8b8a9ce2b9447e04d3ae11d7d80a958c8a80aef8d987164a477221e0a092f72586358cce908422690f1618ccfae32d033e50b19bc1e03fcd2cab7556e6f31eec895c73c8d6f3b4762dfab9bf47b6d71b952436535c8a76c025a272d602eba888715ed49a8e4c3f12294c1408ad1dfce7376cbcb9f770b9523eca170e54d2c908b098baf898ed4fa625f608707c2202d6007bcbd1c0864e9e6233d882d724d7ca03d94c9ad6d929fcd0aef04ad42b7de2064018c478c8d19f2b584deb52290b04b437b6be1697906b93930ad177b646b6939975c788af4ccb0a2932994907d127dfac6d6e5d07bfb6c071594423fb3cfd71d003c36f25676d0b08e2b3cc8acefcc4e8c72d1a47ed1470f48623b0f05080cf3f79b490733df0ec72061ab0f27025fcc6682b8a798930e246c321b7b18547a7b339225cf5f2cdaeb8313a80386406352ee8e87189949e1de2230220ac664e45e5c1ebd1507691a6d3feada041ffc8f0400b7a076cabe6d2865e761908ad7fba5bbc0eb9f3a758cde324dd6cb6740c56183eb94b01798f1a0f1457b640bb2acf6b70a132b2d5982ea97d6c03659f6d65e04ebb3038025a37b21ea04d6f7be2861df7735d16560aaf2d395db920133949992fc564aa030b79e8425c08ab620204bdc5d436c73f2274c47ce151c11af6615d17968cd355347670acd7b255b70a256ba5e6d9945d469f13108bbf9f07fed3d8efd5d0a6f0fea6ba4a2a58503bf5ab8ce04b77d0f89a75dd1a80222b525987f794b5ab71c050e2622d01366c5d46298e55fe3a83f71c8b63a18228863c3fd594fd4681bec5145bc1c7113262363d8e8fda613f15e981061d8fa6da67ae3744891b68dd69b544ffe54ce611cb9b568a2b9f0dd83325192100ef4b0368866bbe74131f657d66de925c661d73abc76e3551d7b3efc2d53d43b707ad642ae52d49b6f0d86c7e6878561bebbc83c8870ca8813d4dc24f042725e391cb2207a49236af3b3ca69a97b5ab3ee00fe8588941e83c7551786ca59a65afd93df69ee4b4173770a40d3e3b682e67043937d6e2778d36d1e045a8be11b409d26086512952dcdcd88c20e0946eec5ea0a1ed22d4fc23f35137cd1ecd750b7868bd878883b5b1cf2023f8286bf8d84b8c8167f27a8f66bf1c3e3e9352ff9c0c366d935c36fee26359ebaa457f55689fe862025a0d531f934a0c5ace28e0c01e838c8c6d18472e00aa6add7c52b83085eb276eeba2147d763d9ecf6bbb2a1812229b8e35de8b9b8fc83f2442c2c036b7c3b9da90347d96f3a788f79eb9129ecc2ae0ecb17aa096602c702369ae5bf8dcc8df0165bd9c47068468aab05f254681125a22486a107e83c3fc4268057ca28c2ce77ea7c6118059ba9ea5343483ea4bf5c9bc2dbe283a4f4a685afb231970c56a664637b8c9eaab0a7198982257c8a6845ea2a96985347b99f9d952c25216522b985917680233ae19b22245f1797f89ab2d4efbef5676b210c4a1b081a3378915050dff7cb81fa4b2396e6e27d318d90554ef3145e6bbdfd3fdf9015b1435ac503ebcc4d881d9ac7bd7b4b1a4aec0114fabbc7c46fb49271a4a05ae2ab790813363a253d95e65467b5f6019ca3fbe2598a9e84c33dd523766d0d96ed2179ba3e330231e0bede2d14424ce0ed83ad3c24ea8b4258be5338a4dc51bd51f5faa772e28403a8cab543aa840d45bb6b1fe18585d37ac6bbd28c11e7256e087ccb8c201319d9f0310e9e0eaf44b999624786ebf854679e24010fec5b90e82df2ef013f026ffd92c1841f674e0413027b4af9c3eac8aad57b1a1b1dfd02325fbf7b51437754a77d1265a2fe7785ca557979d9e26f9a73e4265025e08f5662d2a56bc43932de1cbe4fe80ead4038437027b6a8e843976d7feed2581f03d4afca6342545552bd6bdfe091ca791db81620fb8301652edfd6e3899a42f60a85df27898cb05b82b2b1fa8b8283714c1e6fa4c02f734bf3c1cc14571b554aa0d0e866009bbed584cdb21ba07f835e1698bf6f93f44eb919cd548e7228b36e32b69fe01adaa44f283a960f85bda5baa5fc569e5aa2c74a63ec60cb88a45e26453a7dc2d7382bcefea5faa5bcdb6e6c63370e46f6d0a27aa38f715c0058b9a30cf53c09baf305afbd67320ba49dc61354b71977e4ef1da2f272dcdd9e4e803473f30df571206cbd3344c709e39fbea3a712c847ff067ab2b6875350b9b261618b5df772e11ce5d11887f36a911e9ea333e7f0f5c601d2fb41cf14c7a938f7596a8c73f9be93348226fc07f1c5a801638e61ca56560caca46b19d615a4ab0ef8fb09e43eef6635c553373e1e895f43b31f07c61e2158099bd01c562a75dcf78b6c858f607ffc14db054c2de655a22341fa65974501c9c411cafb25fecd436583db4ceb3c2e2187691efa765aa86f32fbdf75fc408d89d4ee0b4643e457bf04dd774d49ba7a2f420c0a2938a5b5a29128addd4538c9afa1948db04641152b3d2ac714a082506c3bee077342225014d55d6ae38e250fb915ce0047e9c5a964fb09939f76631b220d50680540d5d21841e2fd3e3e2025cdba475d453b9e62bc3c17efa06d52c04bce33a1daa243aeafacc6953fae4505178b4c4765f88fa6ae051292b98c56c5fc87b9f264c073074286fc4834e7128f4f16865d3ccf9d816954681905c6fe17ce9331dc612b41cb0524149fe9f34dcef49979413c3f8513d412a1a4042dd0a5a19d770dad1fb9134c88c93542e16052665e07949975bd236ad945dd3d0d874698720af6735cbd0f3b373fa5c938aa67bd0ba151777e6791d033331d3f90870e44036083d4a3bb23e6997a525553974d1044e2fe689300ac7e6db3f47f7ea89175de27ddea0594",
+        tag: "6a7d21f2778c135d10caf3185413c98d",
+        iterations: 100000
+    };
+
+    const loginContainer = document.getElementById("login-container");
+    const contentContainer = document.getElementById("content-container");
+    const decryptForm = document.getElementById("decrypt-form");
+    const passwordInput = document.getElementById("password-input");
+    const togglePasswordBtn = document.getElementById("toggle-password-btn");
+    const eyeIcon = document.getElementById("eye-icon");
+    const errorMessage = document.getElementById("error-message");
+    const decryptedCode = document.getElementById("decrypted-code");
+    const copyBtn = document.getElementById("copy-btn");
+    const copyText = document.getElementById("copy-text");
+    const copyIcon = document.getElementById("copy-icon");
+    const lockBtn = document.getElementById("lock-btn");
+
+    let decryptedTextContent = "";
+
+    // Helper to convert hex to Uint8Array
+    function hexToUint8Array(hexString) {
+        return new Uint8Array(hexString.match(/.{1,2}/g).map(byte => parseInt(byte, 16)));
+    }
+
+    // AES-GCM Decrypt function
+    async function decryptData(password, payload) {
+        try {
+            const salt = hexToUint8Array(payload.salt);
+            const iv = hexToUint8Array(payload.iv);
+            const ciphertext = hexToUint8Array(payload.ciphertext);
+            const tag = hexToUint8Array(payload.tag);
+            
+            // Web Crypto AES-GCM requires ciphertext and tag to be concatenated
+            const encryptedData = new Uint8Array(ciphertext.length + tag.length);
+            encryptedData.set(ciphertext);
+            encryptedData.set(tag, ciphertext.length);
+
+            const enc = new TextEncoder();
+            const passwordKey = await window.crypto.subtle.importKey(
+                "raw",
+                enc.encode(password),
+                "PBKDF2",
+                false,
+                ["deriveKey"]
+            );
+
+            const derivedKey = await window.crypto.subtle.deriveKey(
+                {
+                    name: "PBKDF2",
+                    salt: salt,
+                    iterations: payload.iterations,
+                    hash: "SHA-256"
+                },
+                passwordKey,
+                { name: "AES-GCM", length: 256 },
+                false,
+                ["decrypt"]
+            );
+
+            const decrypted = await window.crypto.subtle.decrypt(
+                {
+                    name: "AES-GCM",
+                    iv: iv,
+                    tagLength: 128
+                },
+                derivedKey,
+                encryptedData
+            );
+
+            const dec = new TextDecoder();
+            return dec.decode(decrypted);
+        } catch (e) {
+            console.error("Decryption failed:", e);
+            throw new Error("Invalid password");
+        }
+    }
+
+    // Toggle password visibility
+    togglePasswordBtn.addEventListener("click", () => {
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            eyeIcon.innerHTML = `
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l18 18" />
+            `;
+        } else {
+            passwordInput.type = "password";
+            eyeIcon.innerHTML = `
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+            `;
+        }
+    });
+
+    // Form submit handler
+    decryptForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        errorMessage.classList.add("hidden");
+        const password = passwordInput.value;
+
+        try {
+            const decrypted = await decryptData(password, PAYLOAD);
+            decryptedTextContent = decrypted;
+            decryptedCode.textContent = decrypted;
+            
+            // Save in session storage
+            sessionStorage.setItem("skyqueen_key_pass", password);
+
+            // Show content
+            loginContainer.classList.add("hidden");
+            contentContainer.classList.remove("hidden");
+        } catch (err) {
+            errorMessage.classList.remove("hidden");
+            passwordInput.focus();
+            passwordInput.select();
+        }
+    });
+
+    // Check if password already in sessionStorage
+    async function checkAutoLogin() {
+        const storedPass = sessionStorage.getItem("skyqueen_key_pass");
+        if (storedPass) {
+            try {
+                const decrypted = await decryptData(storedPass, PAYLOAD);
+                decryptedTextContent = decrypted;
+                decryptedCode.textContent = decrypted;
+                loginContainer.classList.add("hidden");
+                contentContainer.classList.remove("hidden");
+            } catch (err) {
+                // If stored password doesn't work, clear it
+                sessionStorage.removeItem("skyqueen_key_pass");
+            }
+        }
+    }
+
+    // Copy to clipboard
+    copyBtn.addEventListener("click", () => {
+        if (!decryptedTextContent) return;
+        navigator.clipboard.writeText(decryptedTextContent).then(() => {
+            copyText.textContent = "Đã sao chép!";
+            copyIcon.innerHTML = `
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            `;
+            setTimeout(() => {
+                copyText.textContent = "Sao chép cấu hình";
+                copyIcon.innerHTML = `
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+                `;
+            }, 2000);
+        });
+    });
+
+    // Lock button
+    lockBtn.addEventListener("click", () => {
+        sessionStorage.removeItem("skyqueen_key_pass");
+        passwordInput.value = "";
+        decryptedCode.textContent = "";
+        decryptedTextContent = "";
+        contentContainer.classList.add("hidden");
+        loginContainer.classList.remove("hidden");
+    });
+
+    // Run check on load
+    checkAutoLogin();
+</script>
