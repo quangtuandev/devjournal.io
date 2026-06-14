@@ -8,25 +8,25 @@
 import { giscusConfig } from "../../config";
 
 interface Props {
-  class?: string;
+	class?: string;
 }
 
 const { class: className } = Astro.props;
 
 // Giscus configuration from config.ts
 const config = {
-  repo: giscusConfig.repo,
-  repoId: giscusConfig.repoId,
-  category: giscusConfig.category,
-  categoryId: giscusConfig.categoryId,
-  mapping: giscusConfig.mapping || "pathname",
-  strict: "0",
-  reactionsEnabled: giscusConfig.reactionsEnabled ? "1" : "0",
-  emitMetadata: "0",
-  inputPosition: "top",
-  theme: "preferred_color_scheme",
-  lang: giscusConfig.lang || "vi",
-  loading: "lazy",
+	repo: giscusConfig.repo,
+	repoId: giscusConfig.repoId,
+	category: giscusConfig.category,
+	categoryId: giscusConfig.categoryId,
+	mapping: giscusConfig.mapping || "pathname",
+	strict: "0",
+	reactionsEnabled: giscusConfig.reactionsEnabled ? "1" : "0",
+	emitMetadata: "0",
+	inputPosition: "top",
+	theme: "preferred_color_scheme",
+	lang: giscusConfig.lang || "vi",
+	loading: "lazy",
 };
 ---
 

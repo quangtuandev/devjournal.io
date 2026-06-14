@@ -36,5 +36,5 @@ export const th: Translation = {
 	[Key.publishedAt]: "เผยแพร่เมื่อ",
 	[Key.license]: "สัญญาอนุญาต",
 	[Key.apps]: "แอป",
-[Key.docs]: "Docs",
+	[Key.docs]: "Docs",
 };

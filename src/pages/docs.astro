@@ -1,21 +1,21 @@
 ---
 
 import { getEntry, render } from "astro:content";
-import Markdown from "@components/misc/Markdown.astro";
 import BackToTop from "@components/control/BackToTop.astro";
 import Footer from "@components/Footer.astro";
+import Markdown from "@components/misc/Markdown.astro";
 import Navbar from "@components/Navbar.astro";
-import ImageWrapper from "../components/misc/ImageWrapper.astro";
 import { Icon } from "astro-icon/components";
-import I18nKey from "../i18n/i18nKey";
-import { i18n } from "../i18n/translation";
-import Layout from "../layouts/Layout.astro";
+import ImageWrapper from "../components/misc/ImageWrapper.astro";
 import { siteConfig } from "../config";
 import {
 	BANNER_HEIGHT,
 	BANNER_HEIGHT_EXTEND,
 	MAIN_PANEL_OVERLAPS_BANNER_HEIGHT,
 } from "../constants/constants";
+import I18nKey from "../i18n/i18nKey";
+import { i18n } from "../i18n/translation";
+import Layout from "../layouts/Layout.astro";
 
 const docsPost = await getEntry("spec", "docs");
 
